@@ -25,20 +25,20 @@ class Page extends applicationComponent
         }
         extract ($this->vars);
 
-        ob_start;
+        ob_start();
             require $this->contentFile;
-        $content = ob_get_clean;
+        $content = ob_get_clean();
 
-        ob_start;
+        ob_start();
             require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.php';
-        return ob_get_clean;
+        return ob_get_clean();
     }
 
-    public setContentFile ($contentFile)
+    public function setContentFile ($contentFile)
     {
         if( !is_string($contentFile) || empty($contentFile))
         {
-            throw new \InvalidArgumentException ('le contenu ne peut être qu\'une chaîne de caractère non vide')
+            throw new \InvalidArgumentException ('le contenu ne peut être qu\'une chaîne de caractère non vide');
         }
 
         $this->contentFile = $contentFile;

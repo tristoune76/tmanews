@@ -5,41 +5,56 @@ namespace OCFram;
 abstract class BackController extends ApplicationComponent
 {
 
-    protected $action = "";
-    protected $module = "";
+    protected $action = '';
+    protected $module = '';
     protected $page = null;
-    protected $view = "";
+    protected $view = '';
+    protected $managers = [];
 
-    public function action {return $this->action;}
-    public function module {return $this->module;}
-    public function page {return $this->page;}
-    public function view {return $this->view;}
-
-    public setAction ($action)
+    public function action() {return $this->action;}
+    public function module() {return $this->module;}
+    public function page() {return $this->page;}
+    public function view() {return $this->view;}
+    
+    public function setAction ($action)
     {
-        if (is_string($action))
+        if (is_string($action) && !empty($action))
         {
             $this->action = $action;
         }
+        else
+        {
+            throw new \InvalidArgumentException('L\'action doit être une chaine de caractères valide');
+        }
     }
 
-    public setModule ($module)
+    public function setModule ($module)
     {
-        if (is_string($module))
+        if (!is_string($module) || empty($module))
+        {
+            throw new \InvalidArgumentException('Le module doit être une chaine de caractères valide');
+        }
+        else
         {
             $this->module = $module;
         }
     }
 
-    public setView ($view)
+    public function setView ($view)
     {
-        if (is_string($view))
+        if (is_string($view) && !empty($view))
         {
             $this->view = $view;
+
+            $this->page->setContentFile(__DIR__.'/../../App/'.$this->app->name().'/Modules/'.$this->module().'/Views/'.$this->view.'.php');
+        }
+        else
+        {
+            throw new \InvalidArgumentException('La vue doit être une chaine de caractères valide');
         }
     }
 
-    public setPage (Page $page)
+    public function setPage (Page $page)
     {
         $this->page = $page;
     }
@@ -47,16 +62,22 @@ abstract class BackController extends ApplicationComponent
     public function __construct (Application $app, string $module, string $action)
     {
         
-        parent->__construct($app);
+        parent::__construct($app);
+        $this->managers = new Managers ('PDO', PDOFactory::getMysqlConnexion());
         
         $this->setView($action);
         $this->setModule($module);
         $this->setAction($action);
-        $this->page = new Page;
+        $this->page = new Page($app);
     }
 
-    public function execute (HttpRequest $httprequest)
+    public function execute ()
     {
-        
+        $method = 'execute'.ucfirst($this->action);
+        if (!is_callable([$this, $method]))
+        {
+            throw new \RuntimeException('L\'action "'.$this->action.'" n\'est pas définie sur ce module');
+        }
+        $this->$method($this->app->httpRequest());
     }
 }
