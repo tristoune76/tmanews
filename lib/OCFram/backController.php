@@ -11,7 +11,7 @@ abstract class BackController extends ApplicationComponent
     protected $module = '';
     protected $page = null;
     protected $view = '';
-    protected $managers = [];
+    protected $managers = null;
 
     public function action() {return $this->action;}
     public function module() {return $this->module;}

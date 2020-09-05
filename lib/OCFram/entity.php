@@ -2,7 +2,7 @@
 
 namespace OCFram;
 
-abstract class entity implements \ArrayAccess
+abstract class Entity implements \ArrayAccess
 {
     private $id;
     private $erreurs = [];

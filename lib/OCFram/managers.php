@@ -14,7 +14,7 @@ class Managers
         $this->dao = $dao;
     }
 
-    public function getModuleOf ($module)
+    public function getManagerOf ($module)
     {
         if (!is_string ($module) || empty($module))
         {
@@ -30,7 +30,7 @@ class Managers
             $this->managers[$module] = new manager($this->dao);
         }
 
-        return $this-managers[$module]; 
+        return $this->managers[$module]; 
         
 
     }
