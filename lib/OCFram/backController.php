@@ -5,6 +5,8 @@ namespace OCFram;
 abstract class BackController extends ApplicationComponent
 {
 
+    //Every controller will extend fram this class. So they can use these common methods
+
     protected $action = '';
     protected $module = '';
     protected $page = null;
@@ -73,6 +75,7 @@ abstract class BackController extends ApplicationComponent
 
     public function execute ()
     {
+        //the method that is launched correspond to the action requested in the request. The name of the method is executeAction where Action is described in the request.
         $method = 'execute'.ucfirst($this->action);
         if (!is_callable([$this, $method]))
         {

@@ -32,7 +32,7 @@ class HTTPResponse extends ApplicationComponent
         exit($this->page->getGeneratedPage());
     }
 
-    public function setPage()
+    public function setPage($page)
     {
         $this->page = $page;
     }
