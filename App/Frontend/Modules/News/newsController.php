@@ -2,7 +2,8 @@
 
 namespace App\Frontend\Modules\News;
 
-use /OCFram/BackController;
+use \OCFram\BackController;
+use \OCFram\HTTPRequest;
 
 class NewsController extends BackController
 {
