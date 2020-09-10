@@ -1,6 +1,6 @@
 <?php
 
-const DEFULT_APP = 'Frontend';
+const DEFAULT_APP = 'Frontend';
 
 //we verifiy if there's a parameter in the url ($_GET['app'] parameter)
 //we also verify that the app exists
@@ -9,7 +9,7 @@ const DEFULT_APP = 'Frontend';
 if(isset($_GET['app']) || !file_exists(__DIR__.'/../App'.$_GET['app'])) $_GET['app'] = DEFAULT_APP;
 
 //loading the SPLClassLoader which load engine
-require __DIR__.'/../lib/OCFram/SplClassloader.php';
+require __DIR__.'/../lib/OCFram/SplClassLoader.php';
 
 //loading all classes from all the vendor and framework namespaces
 //loading all files containing all classes from the OCFram namespace
