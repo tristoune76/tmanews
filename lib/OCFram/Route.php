@@ -10,7 +10,7 @@ class Route
     private $varNames;
     private $vars = [];
 
-    public function __construct ($action, $module, $url, $varNames, $vars)
+    public function __construct ($action, $module, $url, $varNames)
     {
         $this->setAction($action);
         $this->setModule($module);
@@ -26,6 +26,14 @@ class Route
             $this->action = $action;
         }
     }
+    
+    public function setUrl($url)
+    {
+        if (is_string($url))
+        {
+            $this->url = $url;
+        }
+    }
 
     public function setModule($module)
     {
@@ -35,7 +43,7 @@ class Route
         }
     }   
 
-    public function setVarNames($url)
+    public function setVarNames($varNames)
     {
         $this->varNames = $varNames;
     }

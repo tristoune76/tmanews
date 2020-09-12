@@ -4,7 +4,7 @@ const DEFAULT_APP = 'Frontend';
 
 //we verifiy if there's a parameter in the url ($_GET['app'] parameter)
 //we also verify that the app exists
-//if not in both case => application will be set as Frontend so it can generate an erro 404 page
+//if not in both case => application will be set as Frontend so it can generate an error 404 page
 
 if(isset($_GET['app']) || !file_exists(__DIR__.'/../App'.$_GET['app'])) $_GET['app'] = DEFAULT_APP;
 

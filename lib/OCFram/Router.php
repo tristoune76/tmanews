@@ -5,13 +5,13 @@ namespace OCFram;
 class Router
 
 {
-    private $routes;
+    private $routes = [];
 
     const NO_ROUTE = 1;
 
     public function addRoute (Route $route)
     {
-        if (-in_array($route, $this->routes))
+        if (in_array($route, $this->routes))
         {
             $this->routes[] = $route;
         }

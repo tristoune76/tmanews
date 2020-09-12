@@ -13,6 +13,29 @@ abstract class BackController extends ApplicationComponent
     protected $view = '';
     protected $managers = null;
 
+    public function __construct (Application $app, string $module, string $action)
+    {
+        
+        parent::__construct($app);
+        $this->managers = new Managers ('PDO', PDOFactory::getMysqlConnexion());
+        
+        $this->setView($action);
+        $this->setModule($module);
+        $this->setAction($action);
+        $this->page = new Page($app);
+    }
+
+    public function execute ()
+    {
+        //the method that is launched correspond to the action requested in the request. The name of the method is executeAction where Action is described in the request.
+        $method = 'execute'.ucfirst($this->action);
+        if (!is_callable([$this, $method]))
+        {
+            throw new \RuntimeException('L\'action "'.$this->action.'" n\'est pas définie sur ce module');
+        }
+        $this->$method($this->app->httpRequest());
+    }
+
     public function action() {return $this->action;}
     public function module() {return $this->module;}
     public function page() {return $this->page;}
@@ -59,28 +82,5 @@ abstract class BackController extends ApplicationComponent
     public function setPage (Page $page)
     {
         $this->page = $page;
-    }
-
-    public function __construct (Application $app, string $module, string $action)
-    {
-        
-        parent::__construct($app);
-        $this->managers = new Managers ('PDO', PDOFactory::getMysqlConnexion());
-        
-        $this->setView($action);
-        $this->setModule($module);
-        $this->setAction($action);
-        $this->page = new Page($app);
-    }
-
-    public function execute ()
-    {
-        //the method that is launched correspond to the action requested in the request. The name of the method is executeAction where Action is described in the request.
-        $method = 'execute'.ucfirst($this->action);
-        if (!is_callable([$this, $method]))
-        {
-            throw new \RuntimeException('L\'action "'.$this->action.'" n\'est pas définie sur ce module');
-        }
-        $this->$method($this->app->httpRequest());
     }
 }

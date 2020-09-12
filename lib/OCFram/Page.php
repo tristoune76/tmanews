@@ -7,6 +7,8 @@ class Page extends applicationComponent
     protected $contentFile;
     protected $vars = [];
 
+
+    public function contentFile() { return contentFile; }
     public function addVar ($var, $value)
     {
         if (!is_string($var) || is_numeric($var) || empty($var))
@@ -21,7 +23,9 @@ class Page extends applicationComponent
     {
         if (!file_exists($this->contentFile))
         {
-            throw new \RuntimeException ('la vue spécifiée n\'existe pas');
+            //throw new \RuntimeException ('la vue spécifiée n\'existe pas');
+            $content = 'le fichier n\'existe pas';
+            return $content;
         }
 
         //identification de l'utilisateur
@@ -44,7 +48,6 @@ class Page extends applicationComponent
         {
             throw new \InvalidArgumentException ('le contenu ne peut être qu\'une chaîne de caractère non vide');
         }
-
         $this->contentFile = $contentFile;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Frontend;
 
+use \OCFram\Application;
+
 class FrontendApplication extends Application
 {
     public function __construct()
@@ -29,7 +31,4 @@ class FrontendApplication extends Application
         //Envoi de la page créée
         $this->httpResponse->send();
     }
-
-
-
 }
