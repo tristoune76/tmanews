@@ -17,11 +17,11 @@ $OCFramLoader = new SplClassLoader ('OCFram', __DIR__.'/../lib');
 $OCFramLoader->register();
 
 //loading all files containing all classes from the Entity namespace
-$entityLoader = new SplClassLoader ('Entity', __DIR__.'/../vendors');
+$entityLoader = new SplClassLoader ('Entity', __DIR__.'/../lib/vendors');
 $entityLoader->register();
 
 //loading all files containing all classes from the Model namespace
-$modelLoader = new SplClassLoader ('Model', __DIR__.'/../vendors');
+$modelLoader = new SplClassLoader ('Model', __DIR__.'/../lib/vendors');
 $modelLoader->register();
 
 //loading all files containing all classes from the Frontend namespace

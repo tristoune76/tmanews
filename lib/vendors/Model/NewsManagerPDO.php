@@ -8,10 +8,10 @@ class NewsManagerPDO extends NewsManager
 {
     public function getList ($debut = -1, $nbreNews = -1)
     {
-        $sql = 'SELECT id contenu auteur titre FROM news ORDER BY id DESC';
-        if (!$debut ==-1 || !$limite ==-1)
+        $sql = 'SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM news ORDER BY id DESC';
+        if ($debut !=-1 || $limite !=-1)
         {
-            $sql .= ' LIMIT '.(int) $debut.','.(int) $nbrNews;
+            $sql .= ' LIMIT '.(int) $nbreNews.' OFFSET '.(int) $debut;
         }
         $requete = $this->dao->query($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');

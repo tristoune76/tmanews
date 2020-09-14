@@ -24,7 +24,7 @@ class Page extends applicationComponent
         if (!file_exists($this->contentFile))
         {
             //throw new \RuntimeException ('la vue spécifiée n\'existe pas');
-            $content = 'le fichier n\'existe pas';
+            $content = 'le fichier n\'existe pas. Le chemin spécifié est: '.$this->contentFile;
             return $content;
         }
 

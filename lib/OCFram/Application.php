@@ -15,7 +15,7 @@ abstract class Application
     public function __construct()
     {
         //when constructing it creates all its differents components
-        //the application deals with a request that tells it what asked and what to do and a response that it send when the request is complete
+        //the application deals with a request that tells it what asked and what to do and a response that it  when the request is complete
 
         $this->httpRequest =  new HTTPRequest($this);
         $this->httpResponse = new HTTPResponse($this);
@@ -56,8 +56,8 @@ abstract class Application
 
             // On ajoute la route au routeur.
             $router->addRoute(new Route($route->getAttribute('action'), $route->getAttribute('module') ,$route->getAttribute('url'), $vars));
+            
         }
-
         try
         {
             // On récupère la route correspondante à l'URL.

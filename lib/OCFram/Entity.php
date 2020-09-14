@@ -10,22 +10,25 @@ abstract class Entity implements \ArrayAccess
     public function id() {return $this->id;}
     public function erreurs() {return $this->erreurs;}
 
-    public function __construct($donnees)
+    public function __construct($donnees = [])
     {
         if(!empty($donnees))
         {
-            $this->hydrate($donnee);        
+            $this->hydrate($donnees);        
         }
     }
 
     public function hydrate (array $donnees)
     {
         foreach($donnees as $attribut => $value)
-        $method = 'set'.ucfirst($attribut);
-        if(is_callable([$this, $method]))
         {
-            $this->$method($value);
+            $method = 'set'.ucfirst($attribut);
+            if(is_callable([$this, $method]))
+            {
+                $this->$method($value);
+            }
         }
+        
 
     }
 

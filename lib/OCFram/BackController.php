@@ -19,10 +19,12 @@ abstract class BackController extends ApplicationComponent
         parent::__construct($app);
         $this->managers = new Managers ('PDO', PDOFactory::getMysqlConnexion());
         
-        $this->setView($action);
-        $this->setModule($module);
-        $this->setAction($action);
         $this->page = new Page($app);
+
+        $this->setModule($module);
+        $this->setView($action);
+        $this->setAction($action);
+
     }
 
     public function execute ()
@@ -70,7 +72,6 @@ abstract class BackController extends ApplicationComponent
         if (is_string($view) && !empty($view))
         {
             $this->view = $view;
-
             $this->page->setContentFile(__DIR__.'/../../App/'.$this->app->name().'/Modules/'.$this->module().'/Views/'.$this->view.'.php');
         }
         else

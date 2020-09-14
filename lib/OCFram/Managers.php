@@ -27,7 +27,7 @@ class Managers
         {
             $manager = '\\Model\\'.$module.'Manager'.$this->api;
 
-            $this->managers[$module] = new manager($this->dao);
+            $this->managers[$module] = new $manager($this->dao);
         }
 
         return $this->managers[$module]; 

@@ -4,16 +4,16 @@ namespace OCFram;
 
 class Config Extends ApplicationComponent
 {
-    protected $var =[];
+    protected $vars = [];
 
     public function get ($var)
     {
         if (!$this->vars)
         {
             $xml = new \DOMDocument;
-            $xml->load('/../../App/'.$this->name.'/Config/app.xml');
+            $xml->load(__DIR__.'/../../App/'.$this->app->name().'/Config/app.xml');
 
-            $elements = $xml->getElementByTagName('define');
+            $elements = $xml->getElementsByTagName('define');
 
             foreach ($elements as $element)
             {
@@ -23,7 +23,7 @@ class Config Extends ApplicationComponent
 
         if (isset($this->vars[$var]))
         {
-            return $this->vars($var);
+            return $this->vars[$var];
         }
         return null;
     }    

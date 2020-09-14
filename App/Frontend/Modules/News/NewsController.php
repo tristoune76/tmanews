@@ -18,21 +18,21 @@ class NewsController extends BackController
         $this->page->addVar('title', $title);
 
         //retrieving the manager for news
-        $manager = $this->app->managers->getManagerOf('News');
+        $manager = $this->managers->getManagerOf('News');
 
         //getting the 5 last news
-        $newsList = $manager->get(0, $nbreNews);
+        $newsList = $manager->getList(0, $nbreNews);
 
         //verifying if the news are not too long and shortening them if they are (adding ... at the end)
         foreach ($newsList as $news)
         {
-            $content = $news->contenu();
-            if (strlen($content) > $nbreCaractere)
+            // $content = $news->contenu();
+            if (strlen($news->contenu()) > $nbreCaractere)
             {
-                $debut = substr($content, 0, $nbreCaractere);
-                $debut = substr($content, $strrpos($debut, ' ')).'...';
+                $debut = substr($news->contenu(), 0, $nbreCaractere);
+                $debut = substr($debut, 0, $strrpos($debut, ' ')).'...';
+                $news->setContenu($debut);
             }
-            $news->setContenu($debut);
         }
 
         //adding a variable contening the list of news for the page

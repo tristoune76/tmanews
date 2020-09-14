@@ -9,9 +9,11 @@ class Router
 
     const NO_ROUTE = 1;
 
+    public function routes() {return $this->routes;}
+    
     public function addRoute (Route $route)
     {
-        if (in_array($route, $this->routes))
+        if (!in_array($route, $this->routes))
         {
             $this->routes[] = $route;
         }
@@ -19,7 +21,7 @@ class Router
 
     public function getRoute ($url)
     {
-        foreach( $this->routes as $route)
+        foreach($this->routes as $route)
         {
             //if the road corresponds to url
             if(($varsValues = $route->match($url)) !== false)
