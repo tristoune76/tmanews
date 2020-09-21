@@ -2,4 +2,5 @@
 <definition>
     <define var = "nbreNews" value = "5"></define>
     <define var = "nbreCaractere" value = "200"></define>
+    <define var = "nbreComments" value = "10"></define>
 </definition>

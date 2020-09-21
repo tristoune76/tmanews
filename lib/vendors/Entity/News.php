@@ -5,6 +5,7 @@ use \OCFram\Entity;
 
 class News extends Entity
 {
+    // protected   $id,
     protected   $auteur,
                 $titre,
                 $contenu,
@@ -14,6 +15,7 @@ class News extends Entity
     const AUTEUR_INVALIDE = 1;
     const TITRE_INVALIDE = 2;
     const CONTENU_INVALIDE = 3;
+    const ID_INVALUDE = 4;
 
     public function isValid()
     {
@@ -21,6 +23,16 @@ class News extends Entity
     }
 
     // SETTERS //
+
+    // public function setId($id)
+    // {
+    //     if (!is_int($id) || empty($id))
+    //     {
+    //         $this->erreurs[] = self::ID_INVALUDE;
+    //     }
+
+    //     $this->id = $id;
+    // }
 
     public function setAuteur($auteur)
     {
@@ -63,6 +75,11 @@ class News extends Entity
     }
 
     // GETTERS //
+
+    // public function id()
+    // {
+    //     return $this->id;
+    // }
 
     public function auteur()
     {

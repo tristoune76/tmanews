@@ -4,8 +4,8 @@ namespace OCFram;
 
 abstract class Entity implements \ArrayAccess
 {
-    private $id;
-    private $erreurs = [];
+    protected $id;
+    protected $erreurs = [];
 
     public function id() {return $this->id;}
     public function erreurs() {return $this->erreurs;}

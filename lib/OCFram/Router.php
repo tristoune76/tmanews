@@ -5,7 +5,7 @@ namespace OCFram;
 class Router
 
 {
-    private $routes = [];
+    protected $routes = [];
 
     const NO_ROUTE = 1;
 
@@ -26,25 +26,29 @@ class Router
             //if the road corresponds to url
             if(($varsValues = $route->match($url)) !== false)
             {
-                
                 //if the route has variable
                 if($route->hasVars())
                 {
-                    $varsNames = $route->varsNames();
+                    $varsName = $route->varsName();
                     $listVars=[];
+                    
+                    // exit (var_dump($varsName['id']));
+                // exit (var_dump($varsValues));
 
                     //we are creating a news key/value array
                     //key = name of the variable and value = value of the variable
-                    foreach ($varNames as $key -> $value)
+                    foreach ($varsValues as $key => $value)
                     {
                         //when using preg_match the first line of the array is not usefull (see preg_match manual)
                         if($key !==0)
                         {
                             //fulling the array with the variable
-                            $listVars[$varNames[$key-1]] = $value;
+                            $listVars[$varsName[$key-1]] = $value;
+                            // exit (var_dump($listVars));
+
                         }
+
                     }
-                    
                     //setting the vars variable of the route with the array
                     $route->setVars($listVars);
                 }

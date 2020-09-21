@@ -4,19 +4,18 @@ namespace OCFram;
 
 class Route
 {
-    private $action;
-    private $module;
-    private $url;
-    private $varNames;
-    private $vars = [];
+    protected $action;
+    protected $module;
+    protected $url;
+    protected $varsName;
+    protected $vars = [];
 
-    public function __construct ($action, $module, $url, $varNames)
+    public function __construct ($action, $module, $url, $varsName)
     {
         $this->setAction($action);
         $this->setModule($module);
         $this->setUrl($url);
-        $this->setVarNames($varNames);
-        
+        $this->setvarsName($varsName);
     }
 
     public function setAction($action)
@@ -43,9 +42,9 @@ class Route
         }
     }   
 
-    public function setVarNames($varNames)
+    public function setvarsName($varsName)
     {
-        $this->varNames = $varNames;
+        $this->varsName = $varsName;
     }
 
     public function setVars(array $vars)
@@ -55,7 +54,7 @@ class Route
 
     public function hasVars ()
     {
-        return !empty($this->varsNames);
+        return !empty($this->varsName);
     }
 
     public function match ($url)
@@ -73,6 +72,6 @@ class Route
     public function url() {return $this->url;}
     public function action() {return $this->action;}
     public function module() {return $this->module;}
-    public function varNames() {return $this->varNames;}
+    public function varsName() {return $this->varsName;}
     public function vars() {return $this->vars;}
 }
