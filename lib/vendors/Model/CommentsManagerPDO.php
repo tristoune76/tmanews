@@ -2,33 +2,43 @@
 
 namespace Model;
 
-use \Entity\Comments;
+use \Entity\Comment;
 
 class CommentsManagerPDO extends CommentsManager
 {
-    public function getList ($news, $debut = -1, $nbreComment = -1)
+    public function getListOf($news)
     {
-        $sql = 'SELECT * FROM comments WHERE news = :news ORDER BY date ASC';
-        if ($debut !=-1 || $nbreComment !=-1)
+        if (!ctype_digit($news))
         {
-            $sql .= ' LIMIT '.(int) $nbreComment.' OFFSET '.(int) $debut;
+            throw new \InvalidArgumentException ('le numéro de la news doit être un entier');
         }
+        $sql = 'SELECT * FROM comments WHERE news = :news';
         $requete = $this->dao->prepare($sql);
-        $requete->bindparam(':news', $id, PDO::PARAM_INT, 11);
+        $requete->bindvalue(':news', $news, \PDO::PARAM_INT);
         $requete->execute();
 
-        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comments');
-    
-        $listComment = $requete->fetchAll();
-        
-        foreach ($listComment as $Comment)
+        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
+
+        $commentsList = $requete->fetchAll();
+        foreach ($commentsList as $comment)
         {
-            $Comment->setDate(new \DateTime($Comment->date()));
+            $comment->setDate(new \DateTime($comment->date()));
+
         }
-        
         $requete->closeCursor();
-        
-        return $listComment;
+        return $commentsList;
+    }
+
+    public function count($newsId)
+    {
+        if (!ctype_digit($newsId))
+        {
+            throw new \InvalidArgumentException ('le numéro de la news doit être un entier');
+        }
+        $requete = $this->dao->prepare('SELECT COUNT(*) FROM comments WHERE news = :news');
+        $requete->bindvalue('news', $newsId, \PDO::PARAM_INT);
+        $requete->execute();
+        return $requete->fetchColumn();
     }
 
     // public function getUnique ($id)

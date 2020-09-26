@@ -41,11 +41,53 @@ class NewsManagerPDO extends NewsManager
         {
             $news->setDateAjout(new \DateTime($news->dateAjout()));
             $news->setDateModif(new \DateTime($news->dateModif()));
-            
+
             return $news;
-        }
-        
+        }   
         return null;
+    }
+
+    public function getComments ($id)
+    {
+        return ('comments');
+    }
+
+    public function count()
+    {
+        $requete = $this->dao->query('SELECT COUNT(*) FROM news');
+        return $requete->fetchColumn();
+    }
+
+    public function modify($news)
+    {
+
+        $request = $this->dao->prepare('UPDATE contenu = :contenu, titre = :titre, auteur = :auteur, dateModif=NOW() FROM news WHERE id = :id');
+        $request->bindvalue (':contenu', $news->contenu());
+        $request->bindvalue (':titre', $news->titre());
+        $request->bindvalue (':auteur', $news->auteur());
+        $request->bindvalue (':id', $news->id());
+
+        $request->execute();
+
+        $flash = 'news correctement modifiée.';
+
+        return $flash;
+    }
+
+    public function add($news)
+    {
+
+        $request = $this->dao->prepare('INSERT INTO news SET contenu = :contenu, titre = :titre, auteur = :auteur, dateAjout=NOW(), dateModif=NOW()');
+        $request->binvalue (':contenu', $news->contenu());
+        $request->binvalue (':titre', $news->titre());
+        $request->binvalue (':auteur', $news->auteur());
+
+        $request->execute();
+
+        $flash = 'news correctement insérée.';
+
+        return $flash;
 
     }
+
 }

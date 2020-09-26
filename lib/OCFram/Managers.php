@@ -25,9 +25,10 @@ class Managers
             //si ce module n'est pas présent dans la liste des managers alors le rajoute
             if (!isset($this->managers[$module]))
             {
+
                 $manager = '\\Model\\'.$module.'Manager'.$this->api;
-                // exit ($manager);
                 $this->managers[$module] = new $manager($this->dao);
+  
             }
             return $this->managers[$module]; 
         }

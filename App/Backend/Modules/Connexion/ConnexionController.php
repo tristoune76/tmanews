@@ -7,7 +7,7 @@ use OCFram\HTTPRequest;
 
 class ConnexionController extends BackController
 {
-    public function executeIndex(httpRequest $request )
+    public function executeIndex(HTTPRequest $request )
     {
         
         // setting the title of the page

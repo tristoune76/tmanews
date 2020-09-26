@@ -41,35 +41,40 @@ class NewsController extends BackController
 
     public function executeShow(HTTPRequest $request)
     {
-       
         $title = 'Voici la news n°'.$request->getData('id');
         $this->page->addVar('title', $title);
         
         //getting the news we want to show
         $manager = $this->managers->getManagerOf('News');
-        
-        // exit ($request->getData('id'));
 
         $news = $manager->getUnique($request->getData('id'));
 
         // exit ($news->contenu());
-   
         if (empty($news))
         {
             $this->app->httpResponse()->redirect404();
         }
-
+ 
         //adding a variable contening the news for the page
         $this->page->addVar('news' , $news);
 
-        $nbreComments = $this->app->config()->get('nbreComments');
 
-        //getting the comments of the news
-        $commentsList = $this->managers->getManagerOf('Comments')->getList($request->getData('id'), 0, $nbreComments);
-
-        //adding a variable contening the list of comments for the page
-        $this->page->addVar('commentsList', $commentsList);  
-        
+        $commentManager = $this->managers->getManagerOf('Comments');
+        $newsId = $request->getData('id');
+        //verifying if there is comment
+       
+        if ($commentManager->count($newsId) == 0)
+        {
+            $commentMessage = 'Pas de commentaire pour cette news';
+            $this->page->addVar('commentMessage', $commentMessage);
+        }
+        else
+        {
+            //getting the comments of the news
+            $commentsList = $commentManager->getListOf($newsId);
+            //adding a variable contening the list of comments for the page
+            $this->page->addVar('commentsList', $commentsList);
+        }
     }
 
     public function executeAddComment(HTTPRequest $request)

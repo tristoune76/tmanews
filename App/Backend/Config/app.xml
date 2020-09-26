@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <definition>
-    <define>var='login' value='admin'</define>
-    <define>var='password' value='mdp'</define>
+    <define var='login' value='admin'></define>
+    <define var='password' value='mdp'></define>
+    <define var='nbreNews' value='5'></define>
+    <define ver='nbreCaractere' value ='200'></define>
 </definition>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-   <route> url ='/admin/' aodule='News' action ='index'</route>
+   <route url='/admin/' module='News' action ='index'></route>
+   <route url='/admin/insert\.html' module='News' action='save'></route>
+   <route url='/admin/modify-(|0-9]+)\.html' module='News' action='save' vars='id'></route>
 </routes>

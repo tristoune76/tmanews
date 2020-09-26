@@ -14,8 +14,12 @@ abstract class CommentsManager extends Manager
     //@Param:$debut is the int variable for the position of the first Comment
     //@Param:$nbrcomment is the int variable for numbre of comment
     //@return : an array of instances of all the comment
-    abstract public function getList ($news, $debut = -1, $nbreComment =-1);
+    abstract public function getListOf ($news);
 
+    //this method returns the number of comments in the table for a news
+    //@Param: $newsId Id of the news
+    //@return : number of comments in the table for the news Id
+    abstract public function count($newsId);
 
     //this method returns one comment
     //@Param:$id is the int variable for the id of the comment
