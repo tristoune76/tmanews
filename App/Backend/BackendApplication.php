@@ -19,7 +19,7 @@ class BackendApplication extends Application
     {
         //Vérification que l'utilisateur administrateur est connecté
         //Si ce n'est pas le cas, on renvoie vers la page de connection
-        if ($this->user->isAuthenticated())
+        if ($this->user()->isAuthenticated())
         {
             //Obtention du contrôleur avec les informations de la requête - utilisation de la méthode de la classe parente
             $controller = $this->getController();
