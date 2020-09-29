@@ -76,11 +76,4 @@ class NewsController extends BackController
             $this->page->addVar('commentsList', $commentsList);
         }
     }
-
-    public function executeAddComment(HTTPRequest $request)
-    {
-        $title = 'vous pouvez écrire votre commentaire.';
-        $this->page->addVar('title',$title);
-
-    }
 }

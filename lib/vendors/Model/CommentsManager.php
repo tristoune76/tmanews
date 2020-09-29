@@ -21,10 +21,36 @@ abstract class CommentsManager extends Manager
     //@return : number of comments in the table for the news Id
     abstract public function count($newsId);
 
-    //this method returns one comment
-    //@Param:$id is the int variable for the id of the comment
-    //@return : an instances of comment
-    // abstract public function getUnique ($id);
+    //this method allow to add a comment for a news
+    //@Param: $comment is the comment to add
+    //@return : 
+    abstract public function add($comment); 
+
+    //this method allow to modify a comment for a news
+    //@Param: $comment is the comment to add
+    //@return : 
+    abstract public function modify($comment);
+
+    // this method returns one comment
+    // @Param:$id is the int variable for the id of the comment
+    // @return : an instances of comment
+    abstract public function getUnique ($id);
+
+    //this method allow to save a comment for a news. it's the same to add or to modify the comment
+    //@Param: $comment is the comment to add
+    //@return : 
+    public function save($comment)
+    {
+        if($comment->isValid())
+        {
+            $comment->isNew() ? $this->add($comment) : $this->modify($comment);
+        }
+        else
+        {
+            throw new \RuntimeException ('Le commentaire doit être valide');
+        }
+    }
+
 }
 
 

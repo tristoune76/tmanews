@@ -11,7 +11,7 @@ class ConnexionController extends BackController
     {
         
         // setting the title of the page
-        $this->$this->page->addVar('title', 'Connexion');
+        $this->page->addVar('title', 'Connexion');
 
         //verifying if a login has been passed in the form
         if ($request->postExists('login'))
@@ -20,7 +20,7 @@ class ConnexionController extends BackController
             if ($request->postData('login') && $request->postData('password'))
             {
                 $login = $request->postData('login');
-                $paswword = $request->postData('password');
+                $password = $request->postData('password');
                 
                 //checking if login and password match
                 if ($login == $this->app->config()->get('login') && $password == $this->app->config()->get('password'))

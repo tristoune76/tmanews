@@ -74,7 +74,7 @@ class NewsManagerPDO extends NewsManager
         return $flash;
     }
 
-    public function add($news)
+    public function save($news)
     {
 
         $request = $this->dao->prepare('INSERT INTO news SET contenu = :contenu, titre = :titre, auteur = :auteur, dateAjout=NOW(), dateModif=NOW()');
@@ -83,11 +83,6 @@ class NewsManagerPDO extends NewsManager
         $request->binvalue (':auteur', $news->auteur());
 
         $request->execute();
-
-        $flash = 'news correctement insérée.';
-
-        return $flash;
-
     }
 
 }

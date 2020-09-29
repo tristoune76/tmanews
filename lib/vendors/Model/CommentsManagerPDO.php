@@ -41,6 +41,43 @@ class CommentsManagerPDO extends CommentsManager
         return $requete->fetchColumn();
     }
 
+    public function add ($comment)
+    {
+        $requete = $this->dao->prepare('INSERT INTO comments SET news=:news, contenu=:contenu, auteur=:auteur, date=NOW()');
+        $requete->bindvalue(':news', $comment->news(), \PDO::PARAM_INT);
+        $requete->bindvalue(':contenu', $comment->contenu());
+        $requete->bindvalue(':auteur', $comment->auteur());
+        $requete->execute();
+    }
+
+    public function getUnique ($id)
+    {
+        if (!ctype_digit($id))
+        {
+            throw new \InvalidArgumentException ('le numéro du commentaire doit être un entier');
+        }
+        $requete = $this->dao->prepare('SELECT * FROM comments WHERE id = :id');
+        $requete->bindValue(':id', $id, \PDO::PARAM_INT);
+        $requete->execute();
+        
+        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
+        
+        if ($comment = $requete->fetch())
+        {
+            $comment->setDate(new \DateTime($comment->date()));
+
+            return $comment;
+        }   
+        return null;
+    }
+
+    public function modify($comment)
+    {
+        
+    }
+
+    
+
     // public function getUnique ($id)
     // {
     //     // if (!is_int ($id))

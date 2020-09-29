@@ -21,6 +21,7 @@ class Router
 
     public function getRoute ($url)
     {
+        // exit(var_dump($this->routes));
         foreach($this->routes as $route)
         {
             //if the road corresponds to url

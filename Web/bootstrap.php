@@ -6,7 +6,7 @@ const DEFAULT_APP = 'Frontend';
 //we also verify that the app exists
 //if not in both case => application will be set as Frontend so it can generate an error 404 page
 
-if(isset($_GET['app']) || !file_exists(__DIR__.'/../App'.$_GET['app'])) $_GET['app'] = DEFAULT_APP;
+if(!isset($_GET['app']) || !file_exists(__DIR__.'/../App/'.$_GET['app'])) $_GET['app'] = DEFAULT_APP;
 
 //loading the SPLClassLoader which load engine
 require __DIR__.'/../lib/OCFram/SplClassLoader.php';
@@ -31,6 +31,7 @@ $appLoader->register();
 //loading the class from the app in the $_GET variable
 //at first we retrieve the name of the class corresponding to the app
 $appClass = 'App\\'.$_GET['app'].'\\'.$_GET['app'].'Application';
+
 
 //then we create the object from the class
 $app = new $appClass;

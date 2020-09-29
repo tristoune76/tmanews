@@ -56,7 +56,7 @@ class Comment extends Entity
 
     public function news()
     {
-        return $news;
+        return $this->news;
     }
     
     public function auteur()
