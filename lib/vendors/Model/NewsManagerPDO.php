@@ -58,31 +58,36 @@ class NewsManagerPDO extends NewsManager
         return $requete->fetchColumn();
     }
 
-    public function modify($news)
+    public function update($news)
     {
-
-        $request = $this->dao->prepare('UPDATE contenu = :contenu, titre = :titre, auteur = :auteur, dateModif=NOW() FROM news WHERE id = :id');
+        // exit('update');
+        
+        $request = $this->dao->prepare('UPDATE news SET contenu = :contenu, titre = :titre, auteur = :auteur, dateModif=NOW() WHERE id = :id');
         $request->bindvalue (':contenu', $news->contenu());
         $request->bindvalue (':titre', $news->titre());
         $request->bindvalue (':auteur', $news->auteur());
-        $request->bindvalue (':id', $news->id());
+        $request->bindvalue (':id', $news->id(), \PDO::PARAM_INT);
 
         $request->execute();
-
-        $flash = 'news correctement modifiée.';
-
-        return $flash;
     }
 
-    public function save($news)
+    public function add($news)
     {
 
+        // exit('add');
+
         $request = $this->dao->prepare('INSERT INTO news SET contenu = :contenu, titre = :titre, auteur = :auteur, dateAjout=NOW(), dateModif=NOW()');
-        $request->binvalue (':contenu', $news->contenu());
-        $request->binvalue (':titre', $news->titre());
-        $request->binvalue (':auteur', $news->auteur());
+        $request->bindvalue (':contenu', $news->contenu());
+        $request->bindvalue (':titre', $news->titre());
+        $request->bindvalue (':auteur', $news->auteur());
 
         $request->execute();
     }
 
+    public function delete($id)
+    {
+        $request =$this->dao->prepare('DELETE FROM news WHERE id =:id');
+        $request->bindvalue (':id', $id, \PDO::PARAM_INT);
+        $request->execute();
+    }
 }

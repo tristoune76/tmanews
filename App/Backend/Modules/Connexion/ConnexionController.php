@@ -11,7 +11,8 @@ class ConnexionController extends BackController
     {
         
         // setting the title of the page
-        $this->page->addVar('title', 'Connexion');
+        $title = 'Connexion au site';
+        $this->page->addVar('title', $title);
 
         //verifying if a login has been passed in the form
         if ($request->postExists('login'))

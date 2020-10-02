@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Frontend\Modules\Comments;
+namespace App\Backend\Modules\Comments;
 
 
 use OCFram\BackController;
@@ -56,6 +56,27 @@ class CommentsController extends BackController
 
         $this->page->addVar('comment', $comment);
 
+    
+    }
+
+    public function executeDelete (HTTPRequest $request)
+    {
+        if ($request->postExists('delete_OK'))
+        {
+            $comment = $this->managers->getManagerOf('Comments')->delete($request->getData('id'));
+            $this->app->user()->setFlash('Le commentaire a été effacé.');
+            $this->app->httpResponse()->redirect("/admin/news-".$request->getData('newsId').".html");
+        }
+        elseif ($request->postExists('delete_NOK'))
+        {      
+            //retrieving the news
+            $this->app->user()->setFlash('Le commentaire n\'est pas effacé.');
+            $this->app->httpResponse()->redirect("/admin/news-".$request->getData('newsId').".html");
+        }
+        else
+        {
+            $this->page->addVar('title', 'Effacer un commentaire - controller');
+        }
     }
 }
 

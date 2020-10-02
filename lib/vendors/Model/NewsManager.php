@@ -34,18 +34,21 @@ abstract class NewsManager extends Manager
     {
         if($news->isValid())
         {
+            // exit($news->id());
             if ($news->isNew())
             {
-                //if the news allready exists then this a modification
-                $flash = $this->modify($news);
+                // exit('news is new');
+                
+                //if the news is new then this an insertion
+                $this->add($news);
             }
             else
             {
-                //if the news doesn't exists then this an insertin
-                $flash = $this->add($news);
-            }
-            return $flash;
+                // exit('news is not new');
 
+                //if the news is not new then this an update
+                $this->update($news);
+            }
         }
         else
         {
@@ -55,13 +58,18 @@ abstract class NewsManager extends Manager
 
     //In this method we will insert a new news in the db
     //@Param : the news to be inserted in db
-    //@return : the message indicating the news has been inserted in db.
+    //@return : Nothing
     abstract public function add($news);
 
     //In this method we will modify a news in the db
     //@Param : the news to be modified in db
-    //@return : the message indicating the news has been modified in db.  
-    abstract public function modify($news);
+    //@return : Nothing  
+    abstract public function update($news);
+
+    //In this method we will delete a news in the db
+    //@Param : the news id to be deleted in db
+    //@return : Nothing 
+    abstract public function delete($id);
 }
 
 

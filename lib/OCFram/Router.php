@@ -21,20 +21,21 @@ class Router
 
     public function getRoute ($url)
     {
+        // exit ($url);        
         // exit(var_dump($this->routes));
         foreach($this->routes as $route)
         {
+            $tabRoute[] = $route->url(); //Debuggage sur le routage
+
             //if the road corresponds to url
             if(($varsValues = $route->match($url)) !== false)
             {
+                // exit('2');
                 //if the route has variable
                 if($route->hasVars())
                 {
                     $varsName = $route->varsName();
                     $listVars=[];
-                    
-                    // exit (var_dump($varsName['id']));
-                // exit (var_dump($varsValues));
 
                     //we are creating a news key/value array
                     //key = name of the variable and value = value of the variable
@@ -45,10 +46,7 @@ class Router
                         {
                             //fulling the array with the variable
                             $listVars[$varsName[$key-1]] = $value;
-                            // exit (var_dump($listVars));
-
                         }
-
                     }
                     //setting the vars variable of the route with the array
                     $route->setVars($listVars);
@@ -56,6 +54,7 @@ class Router
                 return $route;
             }
         }
+        exit(var_dump($tabRoute).'<br>'.$url); //Debuggage sur le routage
         throw new \RuntimeException('No road for this url', self::NO_ROUTE);
     }
 }

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- <title><?= $title ?></title> -->
+    <title><?= $title ?></title>
     
     <meta charset="utf-8" />
     
-    <link rel="stylesheet" href="css/Envision.css" type="text/css" />
-
+    <link rel="stylesheet" href="../css/Envision.css" type="text/css" />
   </head>
   
   <body>
@@ -25,7 +24,7 @@
       </nav>
       
       <div id="content-wrap">
-        <section id="main">
+      <section id="main">
           <?php if ($user->hasFlash()) echo '<p style="text-align: center;">', $user->getFlash(), '</p>'; ?>
           
           <?= $content ?>

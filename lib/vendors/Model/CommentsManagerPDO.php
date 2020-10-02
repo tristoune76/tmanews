@@ -76,6 +76,13 @@ class CommentsManagerPDO extends CommentsManager
         
     }
 
+    public function delete($id)
+    {
+        $request =$this->dao->prepare('DELETE FROM comments WHERE id =:id');
+        $request->bindvalue (':id', $id, \PDO::PARAM_INT);
+        $request->execute();
+    }
+
     
 
     // public function getUnique ($id)

@@ -34,10 +34,7 @@ abstract class Entity implements \ArrayAccess
 
     public function setId ($id)
     {
-        if(is_int($id))
-        {
-            $this->id = (int) $id;
-        }
+        $this->id = (int) $id;
     }
 
     public function isNew ()

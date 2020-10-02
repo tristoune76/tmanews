@@ -51,6 +51,10 @@ abstract class CommentsManager extends Manager
         }
     }
 
+    //In this method we will delete a comment in the db
+    //@Param : the comment id to be deleted in db
+    //@return : Nothing 
+    abstract public function delete($id);
 }
 
 
